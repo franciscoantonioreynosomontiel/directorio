@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directorio Profesional | Encuentra lo que buscas</title>
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .category-scroll::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-20 md:pb-0">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200 px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i class="fas fa-search text-white text-lg"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight">Directorio<span class="text-blue-600">Pro</span></span>
+        </div>
+        <button class="text-slate-500 font-medium hover:text-blue-600 transition-colors">
+            <i class="fas fa-user-circle text-2xl"></i>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-blue-600 px-4 py-12 md:py-20 text-center text-white">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">Servicios profesionales a un clic</h1>
+        <p class="text-blue-100 mb-8 text-lg">Encuentra los mejores restaurantes, plomeros, electricistas y más en tu zona.</p>
+
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-2 flex items-center">
+            <div class="flex-1 flex items-center px-4 gap-3">
+                <i class="fas fa-search text-slate-400"></i>
+                <input type="text" placeholder="¿Qué estás buscando?" class="w-full py-3 outline-none text-slate-800 font-medium">
+            </div>
+            <div class="hidden md:flex border-l border-slate-200 px-4 gap-3 items-center">
+                <i class="fas fa-location-dot text-slate-400"></i>
+                <input type="text" placeholder="Ubicación" class="outline-none text-slate-800 font-medium">
+            </div>
+            <button class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">
+                Buscar
+            </button>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-8 px-4">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold">Categorías principales</h2>
+            <a href="#" class="text-blue-600 font-medium text-sm">Ver todas</a>
+        </div>
+        <div class="flex gap-4 overflow-x-auto category-scroll pb-2">
+            <!-- Category Pill -->
+            <button class="flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <span class="text-sm font-medium">Comida</span>
+            </button>
+            <button class="flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <span class="text-sm font-medium">Obra</span>
+            </button>
+            <button class="flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <span class="text-sm font-medium">Jardín</span>
+            </button>
+            <button class="flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="text-sm font-medium">Electricidad</span>
+            </button>
+            <button class="flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-wrench"></i>
+                </div>
+                <span class="text-sm font-medium">Plomería</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="py-4 px-4 bg-slate-100/50 -mx-0">
+        <h2 class="text-xl font-bold mb-6 mt-4">Negocios destacados</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Business Card -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition-shadow group">
+                <div class="relative h-48 bg-slate-200">
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-emerald-600 flex items-center gap-1 shadow-sm">
+                        <i class="fas fa-check-circle"></i> Verificado
+                    </div>
+                    <div class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md text-slate-400">
+                        <i class="far fa-heart"></i>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg group-hover:text-blue-600 transition-colors">La Parrilla Argentina</h3>
+                        <div class="flex items-center gap-1 text-orange-400">
+                            <i class="fas fa-star"></i>
+                            <span class="text-slate-800 font-bold">4.8</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm mb-4 line-clamp-2">Los mejores cortes de carne a la brasa con el auténtico sabor tradicional.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-medium">Restaurante</span>
+                        <span class="text-emerald-500 text-xs font-bold">Abierto ahora</span>
+                    </div>
+                    <hr class="my-4 border-slate-100">
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-blue-50 text-blue-600 py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp text-lg"></i> Contactar
+                        </button>
+                        <button class="w-12 h-12 bg-slate-50 text-slate-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Card 2 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition-shadow group">
+                <div class="relative h-48 bg-slate-200">
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-emerald-600 flex items-center gap-1 shadow-sm">
+                        <i class="fas fa-check-circle"></i> Verificado
+                    </div>
+                    <div class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md text-slate-400">
+                        <i class="far fa-heart"></i>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg group-hover:text-blue-600 transition-colors">ElectroFix Soluciones</h3>
+                        <div class="flex items-center gap-1 text-orange-400">
+                            <i class="fas fa-star"></i>
+                            <span class="text-slate-800 font-bold">5.0</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm mb-4 line-clamp-2">Servicio técnico de urgencia 24/7. Instalaciones y reparaciones eléctricas.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-medium">Electricista</span>
+                        <span class="text-blue-500 text-xs font-bold">24 Horas</span>
+                    </div>
+                    <hr class="my-4 border-slate-100">
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-blue-600 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-phone-alt"></i> Llamar ahora
+                        </button>
+                        <button class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 flex justify-between items-center z-50">
+        <button class="text-blue-600 flex flex-col items-center gap-1">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Inicio</span>
+        </button>
+        <button class="text-slate-400 flex flex-col items-center gap-1">
+            <i class="fas fa-th-large text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Categorías</span>
+        </button>
+        <button class="text-slate-400 flex flex-col items-center gap-1">
+            <i class="fas fa-heart text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Favoritos</span>
+        </button>
+        <button class="text-slate-400 flex flex-col items-center gap-1">
+            <i class="fas fa-briefcase text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Mi Negocio</span>
+        </button>
+    </nav>
+
+    <script>
+        // Registro del Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registrado', reg))
+                    .catch(err => console.error('Error al registrar Service Worker', err));
+            });
+        }
+    </script>
+</body>
+</html>
