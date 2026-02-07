@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directorio Profesional | Encuentra lo que buscas</title>
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        medium: {
+                            bg: '#475569',
+                            card: '#334155',
+                            text: '#f1f5f9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        .category-scroll::-webkit-scrollbar { display: none; }
+
+        /* Custom Medium Theme */
+        .theme-medium { background-color: #475569; color: #f1f5f9; }
+        .theme-medium header { background-color: #334155; border-color: #1e293b; }
+        .theme-medium .bg-white { background-color: #334155; border-color: #1e293b; color: #f1f5f9; }
+        .theme-medium .text-slate-800 { color: #f1f5f9; }
+        .theme-medium .text-slate-500 { color: #cbd5e1; }
+        .theme-medium .bg-slate-50 { background-color: #475569; }
+        .theme-medium .bg-slate-100 { background-color: #1e293b; }
+        .theme-medium nav { background-color: #334155; border-color: #1e293b; }
+
+        /* Custom Dark Theme Overrides for standard Tailwind dark mode if needed */
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        .dark .bg-white { background-color: #1e293b; border-color: #334155; color: #f8fafc; }
+        .dark .text-slate-800 { color: #f8fafc; }
+        .dark .text-slate-500 { color: #94a3b8; }
+        .dark .bg-slate-50 { background-color: #0f172a; }
+        .dark .bg-slate-100 { background-color: #1e293b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-20 md:pb-0">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200 px-4 py-3 flex justify-between items-center transition-colors">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="location.reload()">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i class="fas fa-search text-white text-lg"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight">Directorio<span class="text-blue-600">Pro</span></span>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <!-- Theme Selector -->
+            <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700">
+                <button onclick="setTheme('light')" id="btn-light" class="w-8 h-8 rounded-full flex items-center justify-center text-blue-600 bg-white shadow-sm transition-all">
+                    <i class="fas fa-sun text-xs"></i>
+                </button>
+                <button onclick="setTheme('medium')" id="btn-medium" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-blue-600 transition-all">
+                    <i class="fas fa-adjust text-xs"></i>
+                </button>
+                <button onclick="setTheme('dark')" id="btn-dark" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-blue-600 transition-all">
+                    <i class="fas fa-moon text-xs"></i>
+                </button>
+            </div>
+
+            <button class="text-slate-500 font-medium hover:text-blue-600 transition-colors" onclick="toggleMenu()">
+                <i class="fas fa-user-circle text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-blue-600 px-4 py-12 md:py-20 text-center text-white">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">Servicios profesionales a un clic</h1>
+        <p class="text-blue-100 mb-8 text-lg">Encuentra los mejores restaurantes, plomeros, electricistas y más en tu zona.</p>
+
+        <!-- Search Bar -->
+        <form onsubmit="handleSearch(event)" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-2 flex items-center">
+            <div class="flex-1 flex items-center px-4 gap-3">
+                <i class="fas fa-search text-slate-400"></i>
+                <input type="text" id="search-input" placeholder="¿Qué estás buscando?" class="w-full py-3 outline-none text-slate-800 font-medium bg-transparent">
+            </div>
+            <div class="hidden md:flex border-l border-slate-200 px-4 gap-3 items-center">
+                <i class="fas fa-location-dot text-slate-400"></i>
+                <input type="text" placeholder="Ubicación" class="outline-none text-slate-800 font-medium bg-transparent">
+            </div>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors">
+                Buscar
+            </button>
+        </form>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-8 px-4">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold">Categorías principales</h2>
+            <a href="#" class="text-blue-600 font-medium text-sm">Ver todas</a>
+        </div>
+        <div class="flex gap-4 overflow-x-auto category-scroll pb-2" id="categories-container">
+            <!-- Category Pills will be functional -->
+            <button onclick="filterByCategory('Comida')" class="category-btn flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <span class="text-sm font-medium">Comida</span>
+            </button>
+            <button onclick="filterByCategory('Obra')" class="category-btn flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <span class="text-sm font-medium">Obra</span>
+            </button>
+            <button onclick="filterByCategory('Jardín')" class="category-btn flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <span class="text-sm font-medium">Jardín</span>
+            </button>
+            <button onclick="filterByCategory('Electricidad')" class="category-btn flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="text-sm font-medium">Electricidad</span>
+            </button>
+            <button onclick="filterByCategory('Plomería')" class="category-btn flex flex-col items-center gap-2 min-w-[100px] bg-white p-4 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-200 transition-all">
+                <div class="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-full flex items-center justify-center text-xl">
+                    <i class="fas fa-wrench"></i>
+                </div>
+                <span class="text-sm font-medium">Plomería</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="py-4 px-4 bg-slate-100/50 dark:bg-slate-900/50 transition-colors">
+        <h2 class="text-xl font-bold mb-6 mt-4" id="section-title">Negocios destacados</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="business-grid">
+
+            <!-- Business Card 1 -->
+            <div class="business-card bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition-all group" data-category="Comida" onclick="showDetails('La Parrilla Argentina')">
+                <div class="relative h-48 bg-slate-200 dark:bg-slate-700">
+                    <div class="absolute top-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-emerald-600 flex items-center gap-1 shadow-sm">
+                        <i class="fas fa-check-circle"></i> Verificado
+                    </div>
+                    <div class="absolute top-4 right-4 bg-white dark:bg-slate-800 p-2 rounded-full shadow-md text-slate-400 hover:text-red-500 transition-colors" onclick="toggleFavorite(event, this)">
+                        <i class="far fa-heart"></i>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg group-hover:text-blue-600 transition-colors">La Parrilla Argentina</h3>
+                        <div class="flex items-center gap-1 text-orange-400">
+                            <i class="fas fa-star"></i>
+                            <span class="text-slate-800 dark:text-slate-200 font-bold">4.8</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-4 line-clamp-2">Los mejores cortes de carne a la brasa con el auténtico sabor tradicional.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-3 py-1 rounded-full text-xs font-medium">Restaurante</span>
+                        <span class="text-emerald-500 text-xs font-bold">Abierto ahora</span>
+                    </div>
+                    <hr class="my-4 border-slate-100 dark:border-slate-800">
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2" onclick="contactBusiness(event, 'whatsapp')">
+                            <i class="fab fa-whatsapp text-lg"></i> Contactar
+                        </button>
+                        <button class="w-12 h-12 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl flex items-center justify-center" onclick="contactBusiness(event, 'phone')">
+                            <i class="fas fa-phone-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Card 2 -->
+            <div class="business-card bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition-all group" data-category="Electricidad" onclick="showDetails('ElectroFix Soluciones')">
+                <div class="relative h-48 bg-slate-200 dark:bg-slate-700">
+                    <div class="absolute top-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-emerald-600 flex items-center gap-1 shadow-sm">
+                        <i class="fas fa-check-circle"></i> Verificado
+                    </div>
+                    <div class="absolute top-4 right-4 bg-white dark:bg-slate-800 p-2 rounded-full shadow-md text-slate-400 hover:text-red-500 transition-colors" onclick="toggleFavorite(event, this)">
+                        <i class="far fa-heart"></i>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg group-hover:text-blue-600 transition-colors">ElectroFix Soluciones</h3>
+                        <div class="flex items-center gap-1 text-orange-400">
+                            <i class="fas fa-star"></i>
+                            <span class="text-slate-800 dark:text-slate-200 font-bold">5.0</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-4 line-clamp-2">Servicio técnico de urgencia 24/7. Instalaciones y reparaciones eléctricas.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-3 py-1 rounded-full text-xs font-medium">Electricista</span>
+                        <span class="text-blue-500 text-xs font-bold">24 Horas</span>
+                    </div>
+                    <hr class="my-4 border-slate-100 dark:border-slate-800">
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-blue-600 text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2" onclick="contactBusiness(event, 'phone')">
+                            <i class="fas fa-phone-alt"></i> Llamar ahora
+                        </button>
+                        <button class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center" onclick="contactBusiness(event, 'whatsapp')">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal Detail (Simulated) -->
+    <div id="modal-detail" class="fixed inset-0 z-[60] hidden flex items-end md:items-center justify-center p-0 md:p-4 transition-all">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="relative bg-white dark:bg-slate-900 w-full max-w-lg rounded-t-3xl md:rounded-3xl overflow-hidden shadow-2xl transition-all translate-y-full" id="modal-content">
+            <div class="h-48 bg-blue-600 relative">
+                <button onclick="closeModal()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full backdrop-blur-md">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <h2 id="modal-title" class="text-2xl font-bold mb-2">Nombre del Negocio</h2>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold" id="modal-category">Categoría</span>
+                    <div class="flex items-center gap-1 text-orange-400 text-sm">
+                        <i class="fas fa-star"></i> <span class="font-bold">4.9</span>
+                    </div>
+                </div>
+                <p class="text-slate-600 dark:text-slate-400 mb-6">Esta es una descripción detallada del negocio que aparecería al hacer clic en la tarjeta. Incluye servicios, especialidades y más información relevante para el usuario.</p>
+
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-clock text-blue-500"></i>
+                        <div class="text-sm">
+                            <p class="font-bold">Horario</p>
+                            <p class="text-slate-500">09:00 - 20:00</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-map-marker-alt text-blue-500"></i>
+                        <div class="text-sm">
+                            <p class="font-bold">Ubicación</p>
+                            <p class="text-slate-500">Centro Ciudad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <button class="flex-1 bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 dark:shadow-none hover:bg-blue-700 transition-all">
+                        Contactar por WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 flex justify-between items-center z-50 transition-colors">
+        <button onclick="filterByCategory('all')" class="nav-item text-blue-600 flex flex-col items-center gap-1">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Inicio</span>
+        </button>
+        <button onclick="scrollToCategories()" class="nav-item text-slate-400 flex flex-col items-center gap-1">
+            <i class="fas fa-th-large text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Categorías</span>
+        </button>
+        <button onclick="showFavorites()" class="nav-item text-slate-400 flex flex-col items-center gap-1">
+            <i class="fas fa-heart text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Favoritos</span>
+        </button>
+        <button onclick="alert('Funcionalidad de Mi Negocio próximamente')" class="nav-item text-slate-400 flex flex-col items-center gap-1">
+            <i class="fas fa-briefcase text-xl"></i>
+            <span class="text-[10px] font-bold uppercase">Mi Negocio</span>
+        </button>
+    </nav>
+
+    <script>
+        // Theme Management
+        function setTheme(theme) {
+            const html = document.documentElement;
+            html.classList.remove('theme-light', 'theme-medium', 'dark');
+
+            // Reset buttons
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.classList.remove('bg-white', 'shadow-sm', 'text-blue-600', 'bg-blue-600', 'text-white');
+                btn.classList.add('text-slate-500');
+            });
+
+            const activeBtn = document.getElementById(`btn-${theme}`);
+            activeBtn.classList.remove('text-slate-500');
+
+            if (theme === 'light') {
+                html.classList.add('theme-light');
+                activeBtn.classList.add('bg-white', 'shadow-sm', 'text-blue-600');
+            } else if (theme === 'medium') {
+                html.classList.add('theme-medium');
+                activeBtn.classList.add('bg-slate-400', 'text-white');
+            } else if (theme === 'dark') {
+                html.classList.add('dark');
+                activeBtn.classList.add('bg-blue-600', 'text-white');
+            }
+
+            localStorage.setItem('theme', theme);
+        }
+
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+
+        // Functional JS
+        function toggleMenu() {
+            alert("Perfil de usuario próximamente");
+        }
+
+        function handleSearch(e) {
+            e.preventDefault();
+            const query = document.getElementById('search-input').value.toLowerCase();
+            if(!query) {
+                filterByCategory('all');
+                return;
+            }
+
+            document.getElementById('section-title').innerText = `Resultados para: "${query}"`;
+            const cards = document.querySelectorAll('.business-card');
+            let found = false;
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const desc = card.querySelector('p').innerText.toLowerCase();
+                if(title.includes(query) || desc.includes(query)) {
+                    card.style.display = 'block';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if(!found) {
+                document.getElementById('business-grid').innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-500">
+                        <i class="fas fa-search-minus text-4xl mb-4"></i>
+                        <p class="text-lg">No encontramos resultados para tu búsqueda.</p>
+                        <button onclick="filterByCategory('all')" class="mt-4 text-blue-600 font-bold">Ver todos los negocios</button>
+                    </div>
+                `;
+            }
+        }
+
+        function filterByCategory(cat) {
+            // Restore grid if it was empty from search
+            if (document.querySelector('.col-span-full')) {
+                location.reload(); // Simple way to restore for prototype
+                return;
+            }
+
+            const cards = document.querySelectorAll('.business-card');
+            const title = document.getElementById('section-title');
+
+            if(cat === 'all') {
+                title.innerText = "Negocios destacados";
+                cards.forEach(c => c.style.display = 'block');
+            } else {
+                title.innerText = `Servicios de ${cat}`;
+                cards.forEach(c => {
+                    if(c.dataset.category === cat) {
+                        c.style.display = 'block';
+                    } else {
+                        c.style.display = 'none';
+                    }
+                });
+            }
+
+            // Update active state in nav
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.replace('text-blue-600', 'text-slate-400'));
+            if(cat === 'all') document.querySelector('.nav-item:first-child').classList.replace('text-slate-400', 'text-blue-600');
+        }
+
+        function toggleFavorite(e, el) {
+            e.stopPropagation();
+            const icon = el.querySelector('i');
+            icon.classList.toggle('far');
+            icon.classList.toggle('fas');
+            icon.classList.toggle('text-red-500');
+
+            if(icon.classList.contains('fas')) {
+                showToast("Guardado en favoritos");
+            }
+        }
+
+        function showDetails(name) {
+            const modal = document.getElementById('modal-detail');
+            const content = document.getElementById('modal-content');
+            const title = document.getElementById('modal-title');
+            const category = document.getElementById('modal-category');
+
+            title.innerText = name;
+            // Get category from card
+            const card = Array.from(document.querySelectorAll('.business-card')).find(c => c.innerText.includes(name));
+            category.innerText = card ? card.dataset.category : "Servicio";
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('translate-y-full');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal-detail');
+            const content = document.getElementById('modal-content');
+            content.classList.add('translate-y-full');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function contactBusiness(e, type) {
+            e.stopPropagation();
+            if(type === 'whatsapp') showToast("Abriendo WhatsApp...");
+            else showToast("Llamando al negocio...");
+        }
+
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full text-sm font-bold z-[100] animate-bounce';
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function scrollToCategories() {
+            document.getElementById('categories-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showFavorites() {
+            const title = document.getElementById('section-title');
+            title.innerText = "Tus favoritos";
+            const cards = document.querySelectorAll('.business-card');
+            let found = false;
+            cards.forEach(c => {
+                if(c.querySelector('.fas.fa-heart')) {
+                    c.style.display = 'block';
+                    found = true;
+                } else {
+                    c.style.display = 'none';
+                }
+            });
+            if(!found) {
+                showToast("No tienes favoritos aún");
+                filterByCategory('all');
+            }
+        }
+
+        // Service Worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registered', reg))
+                    .catch(err => console.log('SW failed', err));
+            });
+        }
+    </script>
+</body>
+</html>
