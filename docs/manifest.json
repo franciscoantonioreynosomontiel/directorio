@@ -2,7 +2,7 @@
   "name": "Directorio Profesional Pro",
   "short_name": "Directorio",
   "description": "Encuentra los mejores profesionales y negocios locales.",
-  "start_url": "index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#F8FAFC",
   "theme_color": "#2563EB",
